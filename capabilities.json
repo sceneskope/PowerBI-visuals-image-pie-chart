@@ -1,0 +1,81 @@
+{
+    "dataRoles": [{
+            "name": "Image",
+            "kind": "Grouping",
+            "displayName": "Image URL",
+            "description": "The URL of the image to show"
+        },
+        {
+            "name": "Series",
+            "kind": "Grouping",
+            "displayName": "Details",
+            "description": "The category to use for each column"
+        },
+        {
+            "name": "Y",
+            "kind": "Measure",
+            "displayName": "Values",
+            "description": "The values to plot"
+        }
+    ],
+    "dataViewMappings": [{
+        "conditions": [
+            { "Image": { "max": 1 }, "Series": { "min": 1, "max": 1 }, "Y": { "min": 1, "max": 1 } },
+            { "Image": { "max": 0 }, "Series": { "min": 1, "max": 1 }, "Y": { "max": 0 } }
+        ],
+        "categorical": {
+            "categories": {
+                "for": { "in": "Series" },
+                "dataReductionAlgorithm": { "top": {} }
+            },
+            "values": {
+                "group": {
+                    "by": "Image",
+                    "dataReductionAlgorithm": { "top": {} },
+                    "select": [
+                        { "bind": { "to": "Y" } }
+                    ]
+                }
+            }
+        }
+    }],
+    "objects": {
+        "enableImages": {
+            "displayName": "Enable Images",
+            "properties": {
+                "show": {
+                    "displayName": "Enable Images",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        },
+        "colorSelector": {
+            "displayName": "Data Colors",
+            "properties": {
+                "fill": {
+                    "displayName": "Color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "generalView": {
+            "displayName": "General View",
+            "properties": {
+                "opacity": {
+                    "displayName": "Column Opacity",
+                    "type": {
+                        "integer": true
+                    }
+                }
+            }
+        }
+    }
+}
